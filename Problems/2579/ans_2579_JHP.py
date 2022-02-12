@@ -17,7 +17,6 @@ def solve():
     for i in range(N):
         stair[i] = int(input())
     
-    
     if N == 1:
         memo[0] = stair[0]
         print(memo[0])
