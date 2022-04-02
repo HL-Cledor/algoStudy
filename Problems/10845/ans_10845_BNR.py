@@ -6,38 +6,60 @@ Queue
 '''
 import sys
 
+class Node:
+    def  __init__(self, data):
+        self.data = data
+        self.next = None
+
 class Queue:
     def __init__ (self):
-        self.Q = []
+        self.head = Node(None)
+        self.tail = Node(None)
+        self.head.next = self.tail
+        self.size = 0
 
-    def push (self, val):
-        self.Q.append(val)
+    def push(self, data):
+        newNode = Node(data)
+        if self.size == 0:
+            self.head.next = newNode
+            self.tail = newNode
+        else:
+            self.tail.next = newNode
+            self.tail = newNode
+        self.size += 1
 
-    def empty (self):
-        if len(self.Q)==0:
+    def popFirst(self):
+        if self.size == 0:
+            return -1
+        else:
+            data = self.head.next.data
+            self.head = self.head.next
+            self.size -= 1
+            return data
+    
+    def Qsize(self):
+        return self.size
+    
+    def empty(self):
+        if self.size == 0:
             return 1
-        return 0 
-    
-    def size (self):
-        return len(self.Q)
-    
-    def pop(self):
-        if len(self.Q)==0:
+        else:
+            return 0
+
+    def front(self):
+        if self.size == 0:
             return -1
         else:
-            return self.Q.pop(0)
-    
-    def front (self):
-        if len(self.Q)==0:
+            return self.head.next.data
+
+    def back(self):
+        if self.size == 0:
             return -1
         else:
-            return self.Q[0]
-    
-    def back (self):
-        if len(self.Q)==0:
-            return -1
-        else:
-            return self.Q[-1]
+            current = self.head
+            while current.next != None:
+                current = current.next
+            return current.data
 
 def solve():
     input = sys.stdin.readline
@@ -49,9 +71,9 @@ def solve():
         if order[0] == 'push':
             que.push(int(order[1]))
         elif order[0] == 'pop':
-            print(que.pop())
+            print(que.popFirst())
         elif order[0] == 'size':
-            print (que.size())
+            print(que.Qsize())
         elif order[0] == 'empty':
             print (que.empty())
         elif order[0] == 'front':
