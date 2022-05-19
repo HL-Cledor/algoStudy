@@ -4,25 +4,23 @@
 # 출력 : 가장 인접한 두 공유기 사이의 최대 거리 출력
 
 import sys
-
 def find_gap(c,home):
     min_dist = 1
     max_dist = max(home) - min(home)
-    
+    result = 0
     while min_dist <= max_dist:
         gap = (min_dist + max_dist)//2
         cnt = 1 # 가장 인접한 두 공유기 사이를 최대로 하기 위해선 첫번째 집에 설치 필요
         start = home[0]
-        
-        for i in range(1, len(home)):
-            if home[i] - start >= gap:
+        for val in home:
+            if val >= start + gap:
                 cnt += 1
-                start = home[i]
-        if cnt < c:
-            max_dist -= 1
-        else:
+                start = val
+        if cnt >= c:
             min_dist += 1
             result = gap
+        else:
+            max_dist -= 1
     return result
 
 def solve():
@@ -36,13 +34,3 @@ def solve():
 
 if __name__ == "__main__":
     solve()
-
-'''
-5 3
-1
-2
-8
-4
-9
-기대값 = 3
-'''
