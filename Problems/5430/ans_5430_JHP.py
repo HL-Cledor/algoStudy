@@ -33,8 +33,8 @@ class deque:
         self.head.next = self.tail
         self.tail.prev = self.head
         self.reverse = False
-        self.size = 0
         self.errorSet = False
+        self.size = 0
     
     def push(self, data):
         new_node = Node(data)
